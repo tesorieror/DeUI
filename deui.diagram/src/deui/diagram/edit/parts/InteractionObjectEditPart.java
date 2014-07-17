@@ -1,5 +1,8 @@
 package deui.diagram.edit.parts;
 
+import java.util.logging.Level;
+
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
@@ -7,6 +10,8 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.Logger;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -22,11 +27,14 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.runtime.notation.impl.NodeImpl;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 
+import deui.DeuiPackage;
+import deui.InteractionObject;
 import deui.diagram.edit.policies.InteractionObjectItemSemanticEditPolicy;
 import deui.diagram.part.DeuiVisualIDRegistry;
 
@@ -65,7 +73,8 @@ public class InteractionObjectEditPart extends ShapeNodeEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new InteractionObjectItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
-		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
+		// XXX need an SCR to runtime to have another abstract superclass that
+		// would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
@@ -170,8 +179,8 @@ public class InteractionObjectEditPart extends ShapeNodeEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model
-	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model so
+	 * you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */
@@ -185,9 +194,11 @@ public class InteractionObjectEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * Default implementation treats passed figure as content pane.
-	 * Respects layout one may have set for generated figure.
-	 * @param nodeShape instance of generated figure class
+	 * Default implementation treats passed figure as content pane. Respects
+	 * layout one may have set for generated figure.
+	 * 
+	 * @param nodeShape
+	 *            instance of generated figure class
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
@@ -312,6 +323,49 @@ public class InteractionObjectEditPart extends ShapeNodeEditPart {
 			return fFigureInteractionObjectNameFigure;
 		}
 
+		/*
+		 * Update background and foreground colors
+		 */
+
+		@Override
+		protected void outlineShape(Graphics graphics) {
+			Color fColor = graphics.getForegroundColor();
+			InteractionObject io = (InteractionObject) ((NodeImpl) getModel())
+					.getElement();
+			if (io.isIsInteractionSurface()) {
+				graphics.setForegroundColor(INTERACTION_SURFACE_FORE);
+			} else if (io.isIsContainer()) {
+				graphics.setForegroundColor(CONTAINER_FORE);
+			} else if (io.isIsComponent()) {
+				graphics.setForegroundColor(COMPONENT_FORE);
+			} else {
+				// Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO,
+				// "No foreground set");
+			}
+			super.outlineShape(graphics);
+			graphics.setForegroundColor(fColor);
+		}
+
+		@Override
+		protected void fillShape(Graphics graphics) {
+			Color bColor = graphics.getBackgroundColor();
+			InteractionObject io = (InteractionObject) ((NodeImpl) getModel())
+					.getElement();
+			if (io.isIsInteractionSurface()) {
+				graphics.setBackgroundColor(INTERACTION_SURFACE_BACK);
+			} else if (io.isIsContainer()) {
+				graphics.setBackgroundColor(CONTAINER_BACK);
+			} else if (io.isIsComponent()) {
+				graphics.setBackgroundColor(COMPONENT_BACK);
+			} else {
+
+				// Logger.getLogger(getClass().getCanonicalName()).log(Level.INFO,
+				// "No background set");
+			}
+			super.fillShape(graphics);
+			graphics.setBackgroundColor(bColor);
+		}
+
 	}
 
 	/**
@@ -320,5 +374,39 @@ public class InteractionObjectEditPart extends ShapeNodeEditPart {
 	static final Font FFIGUREINTERACTIONOBJECTNAMEFIGURE_FONT = new Font(
 			Display.getCurrent(), Display.getDefault().getSystemFont()
 					.getFontData()[0].getName(), 9, SWT.BOLD);
+
+	/*
+	 * Added code to support color change according to properties
+	 */
+
+	static final Color COMPONENT_FORE = new Color(null, 0, 0, 255);
+
+	static final Color COMPONENT_BACK = new Color(null, 220, 220, 255);
+
+	static final Color CONTAINER_FORE = new Color(null, 255, 255, 0);
+
+	static final Color CONTAINER_BACK = new Color(null, 255, 255, 220);
+
+	static final Color INTERACTION_SURFACE_FORE = new Color(null, 0, 255, 0);
+
+	static final Color INTERACTION_SURFACE_BACK = new Color(null, 220, 255, 220);
+
+	protected void handleNotificationEvent(Notification notification) {
+		if (notification.getEventType() == Notification.ADD
+				|| notification.getEventType() == Notification.REMOVE) {
+			if (DeuiPackage.INTERACTION_OBJECT__HOSTS == notification
+					.getFeatureID(InteractionObject.class)
+					|| DeuiPackage.INTERACTION_OBJECT__HOSTED_BY == notification
+							.getFeatureID(InteractionObject.class)
+					|| DeuiPackage.INTERACTION_OBJECT__IMPLEMENTED_BY == notification
+							.getFeatureID(InteractionObject.class)) {
+				// getPrimaryShape().updateBackgroundColor();
+				// getPrimaryShape().updateForegroundColor();
+				getPrimaryShape().invalidate();
+				getPrimaryShape().repaint();
+			}
+		}
+		super.handleNotificationEvent(notification);
+	}
 
 }
