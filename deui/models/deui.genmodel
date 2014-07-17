@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/deui/src" modelPluginID="deui" modelName="Deui"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>deui.ecore</foreignModel>
+  <genPackages prefix="Deui" disposableProviderFactory="true" ecorePackage="deui.ecore#/">
+    <genClasses ecoreClass="deui.ecore#//UISystem">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deui.ecore#//UISystem/interactionObjects"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deui.ecore#//UISystem/platforms"/>
+      <genOperations ecoreOperation="deui.ecore#//UISystem/isDivisible"/>
+      <genOperations ecoreOperation="deui.ecore#//UISystem/hasDividedState"/>
+      <genOperations ecoreOperation="deui.ecore#//UISystem/hasUnifiedState"/>
+      <genOperations ecoreOperation="deui.ecore#//UISystem/isDistributable"/>
+      <genOperations ecoreOperation="deui.ecore#//UISystem/hasDistributedState"/>
+      <genOperations ecoreOperation="deui.ecore#//UISystem/hasSinglePlatformState"/>
+      <genOperations ecoreOperation="deui.ecore#//UISystem/distributionReport"/>
+    </genClasses>
+    <genClasses ecoreClass="deui.ecore#//InteractionObject">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deui.ecore#//InteractionObject/hostedBy"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deui.ecore#//InteractionObject/hosts"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deui.ecore#//InteractionObject/uisystem"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deui.ecore#//InteractionObject/implementedBy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deui.ecore#//InteractionObject/isContainer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deui.ecore#//InteractionObject/isComponent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deui.ecore#//InteractionObject/isInteractionSurface"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deui.ecore#//InteractionObject/dependents"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deui.ecore#//InteractionObject/dependsOn"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deui.ecore#//InteractionObject/interactionSurfaces"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deui.ecore#//InteractionObject/platforms"/>
+    </genClasses>
+    <genClasses ecoreClass="deui.ecore#//Platform">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deui.ecore#//Platform/uiSystem"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference deui.ecore#//Platform/implements"/>
+    </genClasses>
+    <genClasses ecoreClass="deui.ecore#//Hosting">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deui.ecore#//Hosting/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deui.ecore#//Hosting/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deui.ecore#//Hosting/optional"/>
+    </genClasses>
+    <genClasses ecoreClass="deui.ecore#//Implementation">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deui.ecore#//Implementation/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deui.ecore#//Implementation/target"/>
+    </genClasses>
+    <genClasses ecoreClass="deui.ecore#//InteractionDependency">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference deui.ecore#//InteractionDependency/source"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference deui.ecore#//InteractionDependency/target"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="DeuiCommon" disposableProviderFactory="true" ecorePackage="deui-common.ecore#/">
+    <genClasses image="false" ecoreClass="deui-common.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deui-common.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="deui-common.ecore#//IdentifiedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute deui-common.ecore#//IdentifiedElement/id"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

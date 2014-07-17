@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="deui">
+  <figures name="Default">
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="HostingTargetDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="DependencyTargetDecoration"/>
+    <figures xsi:type="gmfgraph:PolygonDecoration" name="ImplementationTargetDecoration">
+      <foregroundColor xsi:type="gmfgraph:ConstantColor" value="black"/>
+      <template y="1"/>
+      <template x="-1" y="1"/>
+      <template x="-1" y="-1"/>
+      <template y="-1"/>
+    </figures>
+    <descriptors name="InteractionObjectFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="InteractionObjectFigure" lineWidth="2">
+        <layout xsi:type="gmfgraph:GridLayout" equalWidth="false"/>
+        <border xsi:type="gmfgraph:MarginBorder">
+          <insets top="5" left="5" bottom="5" right="5"/>
+        </border>
+        <children xsi:type="gmfgraph:Label" name="InteractionObjectNameFigure" text="&lt;...>">
+          <layoutData xsi:type="gmfgraph:GridLayoutData" grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true"/>
+          <font xsi:type="gmfgraph:BasicFont" faceName="" style="BOLD"/>
+        </children>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors name="PlatformFigure">
+      <actualFigure xsi:type="gmfgraph:Ellipse" name="PlatformFigure">
+        <layout xsi:type="gmfgraph:GridLayout" equalWidth="false"/>
+        <foregroundColor xsi:type="gmfgraph:RGBColor" red="255"/>
+        <backgroundColor xsi:type="gmfgraph:RGBColor" red="255" green="220" blue="220"/>
+        <border xsi:type="gmfgraph:MarginBorder">
+          <insets top="5" left="5" bottom="5" right="5"/>
+        </border>
+        <children xsi:type="gmfgraph:Label" name="PlatformNameFigure" text="&lt;...>">
+          <layoutData xsi:type="gmfgraph:GridLayoutData" grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true"/>
+          <font xsi:type="gmfgraph:BasicFont" faceName="" style="BOLD"/>
+        </children>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors name="HostingFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="HostingFigure" targetDecoration="//@figures.0/@figures.0">
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="black"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors name="ImplementationFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="ImplementationFigure" targetDecoration="//@figures.0/@figures.2">
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="black"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors name="DependencyFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="DependencyFigure" lineKind="LINE_DASH" targetDecoration="//@figures.0/@figures.1">
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="black"/>
+      </actualFigure>
+    </descriptors>
+  </figures>
+  <nodes name="InteractionObject" figure="InteractionObjectFigure"/>
+  <nodes name="Platform" figure="PlatformFigure"/>
+  <connections name="Hosting" figure="HostingFigure"/>
+  <connections name="Implementation" figure="ImplementationFigure"/>
+  <connections name="Dependency" figure="DependencyFigure"/>
+  <labels name="InteractionObjectName" figure="InteractionObjectFigure" elementIcon="false" accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+  <labels name="PlatformName" figure="PlatformFigure" elementIcon="false" accessor="//@figures.0/@descriptors.1/@accessors.0"/>
+</gmfgraph:Canvas>
