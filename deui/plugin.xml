@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated deui -->
+      <package
+            uri="http://deui/1.0"
+            class="deui.DeuiPackage"
+            genModel="models/deui.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated deui -->
+      <package
+            uri="http://deuCommon/1.0"
+            class="deuiCommon.DeuiCommonPackage"
+            genModel="models/deui.genmodel"/>
+   </extension>
+
+</plugin>
