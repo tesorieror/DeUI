@@ -1,0 +1,7 @@
+# Tracing options for the deui.diagram plug-in
+
+# Common issues
+deui.diagram/debug=false
+
+# Visual IDs
+deui.diagram/debug/visualID=false

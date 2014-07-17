@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/deui/models/deui.genmodel
+gmf_dashboard/domainModel=platform\:/resource/deui/models/deui.ecore
+gmf_dashboard/generationModel=platform\:/resource/deui/models/deui.gmfgen
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/deui/models/deui.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/deui/models/deui.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/deui/models/deui.gmftool
